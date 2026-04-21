@@ -230,7 +230,7 @@
 		extradefroll = prob(prob2defend)
 		defender_dualw = TRUE
 
-	if(src.client?.prefs.showrolls)
+	if(src.client?.prefs.showrolls && !HAS_TRAIT(user, TRAIT_DECEIVING_MEEKNESS))
 		var/text = "Roll to parry... [prob2defend]%"
 		if(defender_dualw)
 			text += " Twice! Disadvantage! ([(prob2defend / 100) * (prob2defend / 100) * 100]%)"
