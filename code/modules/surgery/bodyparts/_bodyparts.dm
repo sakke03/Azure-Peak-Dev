@@ -711,8 +711,17 @@
 			. += marking_overlays
 
 	// Organ overlays
-	if(!skeletonized && draw_organ_features)
+	if(draw_organ_features)
 		for(var/obj/item/organ/organ as anything in get_visible_organs())
+			if(skeletonized)
+				// Check if this organ has an accessory that persists through skeletonize
+				var/should_draw = FALSE
+				if(organ.accessory_type)
+					var/datum/sprite_accessory/accessory = SPRITE_ACCESSORY(organ.accessory_type)
+					if(accessory && accessory.persists_through_skeletonize)
+						should_draw = TRUE
+				if(!should_draw)
+					continue
 			var/mutable_appearance/organ_appearance = organ.get_bodypart_overlay(src)
 			if(organ_appearance)
 				. += organ_appearance
